@@ -35,9 +35,9 @@ public class ProjectDTO {
 
     @NotBlank
     private String projectDetail;
-
     private Status projectStatus;
 
+    // the following is displayed on project list ui side not on the db
     private int completeTaskCounts;
     private int unfinishedTaskCounts;
 

@@ -21,7 +21,7 @@ public class User extends BaseEntity {
     private String firstName;
     private String lastName;
 
-   // @Column(nullable = false,updatable = false)  // we don't want userName to be null or updated, we find the user by unique username
+   // @Column(unique=true)  // we find the user by unique username
     private String userName;
 
     private String passWord;

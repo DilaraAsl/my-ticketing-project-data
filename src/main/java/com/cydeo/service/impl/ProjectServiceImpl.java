@@ -38,6 +38,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectDTO getByProjectCode(String code) {
         Project project = projectRepository.findByProjectCode(code);
+
         return projectMapper.convertToDto(project);
     }
 
@@ -107,17 +108,18 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectDTO> listAllProjectDetails() {
 
-        UserDTO currentUserDTO = userService.findByUserName("harold@manager.com");
+        UserDTO currentUserDTO = userService.findByUserName("harold@manager.com"); // manager who logged in
         User user = userMapper.convertToEntity(currentUserDTO);
 
-        List<Project> list = projectRepository.findAllByAssignedManager(user);
+        List<Project> list = projectRepository.findAllByAssignedManager(user); // list all the projects that are assigned to the manager
 
 
         return list.stream().map(project -> {
 
             ProjectDTO obj = projectMapper.convertToDto(project);
-
-            obj.setUnfinishedTaskCounts(taskService.totalNonCompletedTask(project.getProjectCode()));
+            // on the project list page we need to provide unfinished and completed task counts
+            // we need a query that returns the total uncompleted and completed tasks to methods in taskService
+            obj.setUnfinishedTaskCounts(taskService.totalNonCompletedTask(project.getProjectCode()));//
             obj.setCompleteTaskCounts(taskService.totalCompletedTask(project.getProjectCode()));
 
             return obj;

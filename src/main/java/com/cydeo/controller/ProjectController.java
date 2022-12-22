@@ -105,7 +105,7 @@ public class ProjectController {
 
     }
 
-    @GetMapping("/manager/complete/{projectCode}")
+    @GetMapping("/manager/complete/{projectCode}") //complete button...
     public String managerCompleteProject(@PathVariable("projectCode") String projectCode) {
         projectService.complete(projectCode);
         return "redirect:/project/manager/project-status";

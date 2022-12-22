@@ -59,11 +59,12 @@ public class UserServiceImpl implements UserService {
     public UserDTO update(UserDTO user) {
 
         //Find current user
+        // removed the
         User user1 = userRepository.findByUserNameAndIsDeleted(user.getUserName(), false);  //has id
         //Map update user dto to entity object
         User convertedUser = userMapper.convertToEntity(user);   // has id?
         //set id to the converted object
-        convertedUser.setId(user1.getId());
+        convertedUser.setId(user1.getId());// when we change the email this line breaks the app because getUserName() will be null
         //save the updated user in the db
         userRepository.save(convertedUser);
 
